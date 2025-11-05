@@ -8,8 +8,7 @@ int main(){
     char Estado[3], Codigo_da_Carta[5], Nome_da_Cidade[30], Estado2[3], Codigo_da_Carta2[5], Nome_da_Cidade2[30];
     float Area_em_Km2, PIB, Area_em_Km22, PIB2;
     float densidade_populacional, pib_percapta, densidade_populacional2, pib_percapta2;
-    
-    
+        
        //--- COLETA DE DADOS DA CARTA 1 ---//
 
     printf("\n--- Inserção Carta 1 ---\n");
@@ -42,7 +41,6 @@ int main(){
 
     densidade_populacional = (float)Populacao / Area_em_Km2;
     pib_percapta = (PIB * 1e9)/ (float)Populacao;
-
     
     //--- COLETA DE DADOS DA CARTA 2 ---//
 
