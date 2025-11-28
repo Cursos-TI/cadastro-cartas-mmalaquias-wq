@@ -9,7 +9,7 @@ int main(){
     float Area_em_Km2, PIB, Area_em_Km22, PIB2;
     float densidade_populacional, pib_percapta, densidade_populacional2, pib_percapta2, super_poder1, super_poder2;
     
-        // COLETA DE DADOS DA CARTA 1 //
+    // COLETA DE DADOS DA CARTA 1 //
 
     printf("\n--- Inserção Carta 1 ---\n");
 
@@ -39,8 +39,20 @@ int main(){
 
     // ADICAO CALCULO PIB PERCAPTA E DENSIDADE POPULACIONAL CARTA1 //
 
-    densidade_populacional = (float)Populacao / Area_em_Km2;    
-    pib_percapta = (PIB * 1e9) / (float)Populacao;
+    // CHECK BASICO DIVIDE BY 0 //
+
+    if (Area_em_Km2 != 0.0) {
+        densidade_populacional = (float)Populacao / Area_em_Km2; 
+    } else {
+        densidade_populacional = 0.0;
+    }
+    // CHECK BASICO DIVIDE BY 0 //
+
+    if (Populacao > 0) {
+        pib_percapta = (PIB * 1e9) / (float)Populacao;
+    } else {
+        pib_percapta = 0.0;
+    }
 
     // COLETA DE DADOS DA CARTA 2 //
 
@@ -72,8 +84,17 @@ int main(){
 
     // ADICAO CALCULO PIB PERCAPTA E DENSIDADE POPULACIONAL CARTA2 //
 
-    densidade_populacional2 = (float)Populacao2 / Area_em_Km22;
-    pib_percapta2 = (PIB2 * 1e9) / (float)Populacao2;
+    if (Area_em_Km22 != 0.0) {
+        densidade_populacional2 = (float)Populacao2 / Area_em_Km22;
+    } else {
+        densidade_populacional2 = 0.0;
+    }
+
+    if (Populacao2 > 0) {
+        pib_percapta2 = (PIB2 * 1e9) / (float)Populacao2;
+    } else {
+        pib_percapta2 = 0.0;
+    }
  
     // EXIBICAO DADOS COLETADOS CARTA1 //
 
@@ -102,37 +123,32 @@ int main(){
     printf("Número de Pontos Turisticos: %d\n", Numero_de_Pontos_Turisticos2);
     printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional2);
     printf("PIB per Capta: %.2f Reais\n", pib_percapta2);
-   
-    // CALCULAR SUPER PODER //
-  
-    super_poder1 = (float)Populacao + Area_em_Km2 + PIB + (float)Numero_de_Pontos_Turisticos + pib_percapta + (1.0 / densidade_populacional);
-    super_poder2 = (float)Populacao2 + Area_em_Km22 + PIB2 + (float)Numero_de_Pontos_Turisticos2 + pib_percapta2 + (1.0 / densidade_populacional2);
+    
+    // CALCULAR SUPER PODER // - // CHECK BASICO DIVIDE BY 0 //    
+     
+    float inverso_densidade1 = (densidade_populacional != 0.0) ? (1.0 / densidade_populacional) : 0.0;
+    float inverso_densidade2 = (densidade_populacional2 != 0.0) ? (1.0 / densidade_populacional2) : 0.0;
+    
+    super_poder1 = (float)Populacao + Area_em_Km2 + PIB + (float)Numero_de_Pontos_Turisticos + pib_percapta + inverso_densidade1;
+    super_poder2 = (float)Populacao2 + Area_em_Km22 + PIB2 + (float)Numero_de_Pontos_Turisticos2 + pib_percapta2 + inverso_densidade2;
 
-    // EXIBICAO E COMPARACAO //
+    // EXIBICAO E COMPARACAO IF E ELSE (Atributo: População) //
 
-    printf("\n--- Comparação de Cartas ---\n");
+    printf("\n--- Comparação de Cartas (Atributo: População) ---\n");
 
-    // População (maior vence) //
-    printf("População: Carta 1 venceu (%d)\n", Populacao > Populacao2);
+    printf("Carta 1 - %s (%s): %d\n", Nome_da_Cidade, Estado, Populacao);
+    printf("Carta 2 - %s (%s): %d\n", Nome_da_Cidade2, Estado2, Populacao2);
 
-    // Área (maior vence) //
-    printf("Área: Carta 1 venceu (%d)\n", Area_em_Km2 > Area_em_Km22);
+    // Regra: População - O maior valor vence
+    
+    if (Populacao > Populacao2) {
+        printf("Resultado: Carta 1 (%s) venceu!\n", Nome_da_Cidade);
+    } 
+    // Se o valor2 for maior que o valor1
 
-    // PIB (maior vence) //
-    printf("PIB: Carta 1 venceu (%d)\n", PIB > PIB2);
-
-    // Pontos Turísticos (maior vence) //
-    printf("Pontos Turísticos: Carta 1 venceu (%d)\n", Numero_de_Pontos_Turisticos > Numero_de_Pontos_Turisticos2);
-
-    // Densidade Populacional (menor vence) //
-    printf("Densidade Populacional: Carta 2 venceu (%d)\n", densidade_populacional < densidade_populacional2);
-
-    // PIB per Capita (maior vence) //
-    printf("PIB per Capita: Carta 1 venceu (%d)\n", pib_percapta > pib_percapta2);
-
-    // Super Poder (maior vence) //
-    printf("Super Poder: Carta 1 venceu (%d)\n", super_poder1 > super_poder2);
-
+    else if (Populacao2 > Populacao) {
+        printf("Resultado: Carta 2 (%s) venceu!\n", Nome_da_Cidade2);
+    }
     
     return 0;
 }
