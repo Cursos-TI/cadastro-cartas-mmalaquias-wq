@@ -12,6 +12,22 @@ int main() {
     int linhaV = 5, colunaV = 6;
     for (int i = 0; i < tamanhoNavio; i++) tabuleiro[linhaV + i][colunaV] = 3;
 
+    int linhaH = 2, colunaH = 1;
+    for (int i = 0; i < tamanhoNavio; i++) tabuleiro[linhaH][colunaH + i] = 3; // --- HOR --- //
+
+    int linhaV = 5, colunaV = 6;
+    for (int i = 0; i < tamanhoNavio; i++) tabuleiro[linhaV + i][colunaV] = 3; // --- VER --- //
+
+    int linhaD1 = 0, colunaD1 = 5;
+    for (int i = 0; i < tamanhoNavio; i++) {
+        tabuleiro[linhaD1 + i][colunaD1 + i] = 3; // --- DIAGONAL --- //
+    }
+
+    int linhaD2 = 8, colunaD2 = 1;
+    for (int i = 0; i < tamanhoNavio; i++) {
+        tabuleiro[linhaD2 - i][colunaD2 + i] = 3; // --- DIAGONAL --- //
+    }
+
     // --- TABULEIRO COM COORDENADAS --- //
     // --- IMPRIME CABEÇALHO (A a J) --- //  
     
